@@ -169,24 +169,6 @@ strong { font-weight: 600; }
 }
 .header__brand { display: flex; align-items: center; }
 
-/* ---------- Selo Black Opimed ---------- */
-.seal {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin-bottom: 28px;
-}
-.seal__img { width: 300px; }
-.seal__img--sm { width: 220px; margin-bottom: 28px; }
-.seal__year {
-  font-size: 15px;
-  font-weight: 700;
-  letter-spacing: .14em;
-  color: #fff;
-  background: var(--primary);
-  padding: 6px 12px;
-  border-radius: 999px;
-}
 
 /* ---------- Hero ---------- */
 .hero {
@@ -729,10 +711,6 @@ strong { font-weight: 600; }
   .form-card { padding: 28px 20px; border-radius: 16px; }
   .hero__offer { padding: 18px; }
   .hero__included { font-size: 16px; }
-  .seal { gap: 12px; margin-bottom: 22px; }
-  .seal__img { width: 220px; }
-  .seal__img--sm { width: 190px; }
-  .seal__year { font-size: 13px; padding: 5px 10px; }
   .footer__bottom { justify-content: center; text-align: center; }
 }
 
