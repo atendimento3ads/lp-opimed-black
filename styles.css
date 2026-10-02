@@ -232,16 +232,7 @@ strong { font-weight: 700; }
   letter-spacing: .01em;
 }
 .hero__offer-text { margin-top: 10px; font-size: 17px; line-height: 1.55; color: var(--on-dark-2); }
-.hero__included {
-  margin-top: 24px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 17px;
-  font-weight: 600;
-  color: var(--gold-light);
-}
-.hero__included svg { flex: none; width: 22px; height: 22px; }
+.hero__invite { margin-top: 22px; font-size: 17px; line-height: 1.5; font-weight: 600; color: #fff; }
 .hero .cta-row { margin-top: 32px; }
 .hero__legal {
   margin-top: 26px;
@@ -303,7 +294,7 @@ strong { font-weight: 700; }
 
 /* ---------- Oferta (painel claro do KV) ---------- */
 .offer__title {
-  font-size: clamp(17px, 4.75vw, 70px);
+  font-size: clamp(18px, 6.9vw, 90px);
   line-height: 1.02;
   font-weight: 800;
   text-transform: uppercase;
@@ -312,13 +303,14 @@ strong { font-weight: 700; }
 }
 .offer__title span {
   display: block;
-  margin-top: .08em;
-  font-size: 1.9em;
-  line-height: .98;
+  margin-top: .06em;
+  font-size: .964em;
+  line-height: 1;
   color: var(--gold);
 }
 .offer__split { margin-top: 48px; align-items: start; }
 .offer__lead { max-width: 520px; font-size: clamp(17px, 1.6vw, 21px); }
+.offer__lead + .offer__lead { font-size: clamp(16px, 1.3vw, 18px); font-weight: 600; color: var(--t1); }
 .facts {
   background: var(--bg);
   border-radius: var(--radius);
@@ -424,11 +416,13 @@ strong { font-weight: 700; }
 .chip[aria-pressed="true"] { background: var(--gold); border-color: var(--gold); color: var(--black); }
 .units__grid {
   margin-top: 32px;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 20px;
 }
 .unit {
+  flex: 0 1 calc((100% - 40px) / 3);
   background: var(--black-2);
   border: 1px solid var(--line-dark);
   border-radius: var(--radius);
@@ -704,7 +698,7 @@ strong { font-weight: 700; }
   .models { grid-template-columns: repeat(2, 1fr); }
   .testimonials { grid-template-columns: 1fr 1fr; }
   .testimonials .testimonial:last-child { grid-column: span 2; }
-  .units__grid { grid-template-columns: 1fr 1fr; }
+  .unit { flex-basis: calc((100% - 20px) / 2); }
   .header__wa span { display: none; }
 }
 
@@ -736,7 +730,7 @@ strong { font-weight: 700; }
   .btn:not(.btn--sm) { width: 100%; padding: 18px 20px; }
   .cta-row { margin-top: 32px; }
   .hero__offer { padding: 18px; }
-  .hero__included { font-size: 15px; }
+  .hero__invite { font-size: 16px; }
   .facts { padding: 4px 20px; }
   .fact { grid-template-columns: 40px 1fr; gap: 16px; padding: 22px 0; }
   .fact__icon { width: 40px; height: 40px; }
@@ -746,8 +740,8 @@ strong { font-weight: 700; }
   .model__name { font-size: 14px; }
   .units__chips { flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; margin: 32px calc(var(--gutter) * -1) 0; padding: 0 var(--gutter) 6px; scrollbar-width: none; }
   .units__chips::-webkit-scrollbar { display: none; }
-  .units__grid { grid-template-columns: 1fr; margin-top: 24px; }
-  .unit { padding: 24px 20px; }
+  .units__grid { margin-top: 24px; }
+  .unit { flex-basis: 100%; padding: 24px 20px; }
   .testimonials { grid-template-columns: 1fr; margin-top: 40px; }
   .testimonials .testimonial:last-child { grid-column: auto; }
   .testimonial { padding: 24px; }

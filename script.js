@@ -11,9 +11,9 @@ var WHATS_MSG = 'Olá! Quero agendar minha avaliação na Black Opimed.';
 /* ---------- 1. Fases da campanha ----------
    Para testar uma fase, abra a página com ?fase=outubro | novembro | semana-black | dezembro */
 var FASES = [
-  { id: 'outubro',      ate: '2026-10-31', texto: '<strong>A Black Opimed 2026 começou.</strong> Compre 1 aparelho auditivo e ganhe outro.' },
+  { id: 'outubro',      ate: '2026-10-31', texto: '<strong>A Black Opimed 2026 começou.</strong> Até 100% de desconto no segundo aparelho.' },
   { id: 'novembro',     ate: '2026-11-22', texto: '<strong>Black Opimed 2026.</strong> Tire suas dúvidas e agende sua avaliação.' },
-  { id: 'semana-black', ate: '2026-11-30', texto: '<strong>Semana Black Opimed.</strong> Compre 1 aparelho auditivo e ganhe outro.' },
+  { id: 'semana-black', ate: '2026-11-30', texto: '<strong>Semana Black Opimed.</strong> Até 100% de desconto no segundo aparelho.' },
   { id: 'dezembro',     ate: '2026-12-31', texto: '<strong>Último mês da Black Opimed.</strong> Oferta válida até 31/12/2026.', contagem: true }
 ];
 
