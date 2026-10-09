@@ -234,13 +234,6 @@ strong { font-weight: 700; }
 .hero__offer-text { margin-top: 10px; font-size: 17px; line-height: 1.55; color: var(--on-dark-2); }
 .hero__invite { margin-top: 22px; font-size: 17px; line-height: 1.5; font-weight: 600; color: #fff; }
 .hero .cta-row { margin-top: 32px; }
-.hero__legal {
-  margin-top: 26px;
-  max-width: 540px;
-  font-size: 12px;
-  line-height: 1.6;
-  color: var(--on-dark-3);
-}
 
 /* ---------- Seções ---------- */
 .section { padding: var(--section-y) 0; }
@@ -676,24 +669,6 @@ strong { font-weight: 700; }
 .form-card.is-sent form { display: none; }
 .form-card.is-sent .form-success { display: block; }
 
-/* ---------- Condições ---------- */
-.terms {
-  background: var(--black-2);
-  color: var(--on-dark-3);
-  padding: 48px 0;
-  border-top: 1px solid var(--line-dark);
-}
-.terms__title {
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  color: var(--on-dark-2);
-  margin-bottom: 12px;
-}
-.terms p { font-size: 13px; line-height: 1.7; max-width: 980px; }
-.terms strong { color: var(--on-dark-2); }
-
 /* ---------- Footer ---------- */
 .footer {
   background: var(--black);
@@ -704,6 +679,10 @@ strong { font-weight: 700; }
 }
 .footer .logo { width: 150px; margin: 0 auto; }
 .footer__about { margin: 24px auto 0; max-width: 620px; font-size: 14px; line-height: 1.7; color: var(--on-dark-2); }
+.footer__legal { margin: 32px auto 0; max-width: 900px; padding-top: 28px; border-top: 1px solid var(--line-dark); }
+.footer__legal-title { font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--on-dark-2); margin-bottom: 10px; }
+.footer__legal p { font-size: 12px; line-height: 1.7; }
+.footer__legal strong { color: var(--on-dark-2); }
 .footer__bottom {
   margin-top: 48px;
   padding-top: 28px;
