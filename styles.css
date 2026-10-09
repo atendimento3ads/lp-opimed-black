@@ -653,6 +653,13 @@ strong { font-weight: 700; }
 }
 .field .is-invalid { border-color: #b3261e; }
 .form-card .btn { margin-top: 28px; }
+.form-card__error { margin-top: 14px; padding: 12px 14px; border-radius: var(--radius-sm); background: #fbeceb; color: #8c1d18; font-size: 14px; line-height: 1.5; }
+.btn:disabled { opacity: .65; cursor: progress; }
+.thanks { min-height: 70vh; display: grid; place-items: center; padding: 96px 0; text-align: center; }
+.thanks__icon { width: 72px; height: 72px; margin: 0 auto 24px; border-radius: 50%; background: var(--gold-tint); color: var(--gold-deep); display: grid; place-items: center; }
+.thanks__icon svg { width: 36px; height: 36px; }
+.thanks__text { margin: 16px auto 0; max-width: 560px; }
+.thanks .cta-row { justify-content: center; }
 .form-card__privacy { margin-top: 16px; font-size: 12px; line-height: 1.55; color: var(--t3); text-align: center; }
 .form-success { display: none; text-align: center; padding: 32px 8px; }
 .form-success__icon {

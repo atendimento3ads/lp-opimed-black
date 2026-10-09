@@ -5,8 +5,10 @@
    3. Formulário
    ========================================================= */
 
-var WHATS = 'https://api.whatsapp.com/send?phone=5508001001989&text=';
-var WHATS_MSG = 'Olá! Quero agendar minha avaliação na Pré-Black Opimed.';
+/* Todos os botões de WhatsApp apontam para o link rastreado do Tintim */
+var WHATS_URL = 'https://tintim.link/whatsapp/7c349cb9-c7e6-42a9-8469-b6271b6bdefa/3618e89b-fe36-4488-b7c2-d60239f6378a';
+var WEBHOOK_URL = 'https://hook.us2.make.com/y5s7zrmm87rr9vehotg9t8exmch8cdl6';
+var OBRIGADO_URL = 'obrigado.html';
 
 /* ---------- 1. Fase da campanha ----------
    Pré-Black Opimed: 01/10/2026 a 31/10/2026. Depois do fim, a faixa não aparece.
@@ -89,9 +91,8 @@ function esc(s) {
     return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
   });
 }
-function waLink(unidade) {
-  var msg = WHATS_MSG + (unidade ? ' Unidade: ' + unidade.nome + ', ' + unidade.uf + '.' : '');
-  return WHATS + encodeURIComponent(msg);
+function waLink() {
+  return WHATS_URL;
 }
 function rotaLink(u) {
   return 'https://www.google.com/maps/dir/?api=1&destination=' +
@@ -145,7 +146,7 @@ function rotaLink(u) {
             '<a class="btn btn--sm js-agendar" href="#formulario" data-id="' + u.id + '">Agendar nesta unidade</a>' +
             '<div class="unit__links">' +
               '<a href="' + rotaLink(u) + '" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-route"/></svg>Como chegar</a>' +
-              '<a class="is-wa" href="' + waLink(u) + '" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-whats"/></svg>WhatsApp</a>' +
+              '<a class="is-wa" href="' + waLink() + '" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-whats"/></svg>WhatsApp</a>' +
             '</div>' +
           '</div>' +
         '</article>';
@@ -179,13 +180,12 @@ function rotaLink(u) {
       c.setAttribute('aria-pressed', c.dataset.estado === estado ? 'true' : 'false');
     });
     grid.innerHTML = PARCEIROS.filter(function (p) { return p.estado === estado; }).map(function (p) {
-      var msg = WHATS_MSG + ' Gostaria de ser atendido(a) pelo fonoaudiólogo representante Opimed em ' + p.cidade + ' - ' + p.uf + '.';
       return '' +
         '<article class="unit">' +
           '<p class="unit__uf">Fonoaudiólogo Representante · ' + esc(p.estado) + '</p>' +
           '<h3 class="unit__name">' + esc(p.cidade) + '</h3>' +
           '<div class="unit__actions">' +
-            '<a class="btn btn--sm btn--whats" href="' + WHATS + encodeURIComponent(msg) + '" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-whats"/></svg>Quero ser atendido em ' + esc(p.cidade) + '</a>' +
+            '<a class="btn btn--sm btn--whats" href="' + waLink() + '" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-whats"/></svg>Quero ser atendido em ' + esc(p.cidade) + '</a>' +
           '</div>' +
         '</article>';
     }).join('');
@@ -225,10 +225,31 @@ function rotaLink(u) {
   });
 })();
 
-/* ---------- 3. Formulário ---------- */
+/* ---------- 3. Formulário ----------
+   Envia nome, telefone, unidade e UTMs ao webhook (Make) e redireciona para a página de obrigado.
+   O webhook é chamado em modo no-cors: o navegador não lê a resposta, então o redirecionamento
+   acontece quando a requisição é entregue sem erro de rede (sem simular sucesso em caso de falha). */
 (function () {
   var form = document.getElementById('leadForm');
-  var card = document.getElementById('formCard');
+  var errorBox = document.getElementById('formError');
+  var submitBtn = form.querySelector('button[type="submit"]');
+  var sending = false;
+  var UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
+
+  // UTMs: lê da URL e guarda só na sessão para sobreviver à navegação interna
+  function getUtms() {
+    var out = {};
+    var q = new URLSearchParams(location.search);
+    UTM_KEYS.forEach(function (k) {
+      var v = q.get(k);
+      try {
+        if (v) sessionStorage.setItem(k, v); else v = sessionStorage.getItem(k);
+      } catch (e) {}
+      if (v) out[k] = v;
+    });
+    return out;
+  }
+  getUtms();
 
   document.getElementById('telefone').addEventListener('input', function (e) {
     var d = e.target.value.replace(/\D/g, '').slice(0, 11);
@@ -238,17 +259,56 @@ function rotaLink(u) {
     e.target.value = out;
   });
 
-  // Protótipo: valida e mostra a mensagem de sucesso. Falta ligar ao CRM,
-  // enviando o campo "unidade" para o lead ir à equipe correta.
+  function showError(msg) {
+    errorBox.textContent = msg;
+    errorBox.hidden = false;
+  }
+
   form.addEventListener('submit', function (e) {
     e.preventDefault();
+    if (sending) return;
+    errorBox.hidden = true;
+
     var ok = true;
+    var firstBad = null;
     form.querySelectorAll('[required]').forEach(function (i) {
       var bad = !i.value.trim() || (i.type === 'tel' && i.value.replace(/\D/g, '').length < 10);
       i.classList.toggle('is-invalid', bad);
-      if (bad) ok = false;
+      if (bad) { ok = false; if (!firstBad) firstBad = i; }
     });
-    if (ok) card.classList.add('is-sent');
+    if (!ok) { firstBad.focus(); return; }
+
+    var body = new URLSearchParams();
+    body.set('nome', form.nome.value.trim());
+    body.set('telefone', form.telefone.value.trim());
+    body.set('unidade', form.unidade.value);
+    body.set('pagina', location.origin + location.pathname);
+    var utms = getUtms();
+    UTM_KEYS.forEach(function (k) { if (utms[k]) body.set(k, utms[k]); });
+
+    sending = true;
+    submitBtn.disabled = true;
+    submitBtn.setAttribute('aria-busy', 'true');
+
+    var ctrl = typeof AbortController !== 'undefined' ? new AbortController() : null;
+    var timer = setTimeout(function () { if (ctrl) ctrl.abort(); }, 10000);
+
+    fetch(WEBHOOK_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      keepalive: true,
+      body: body,
+      signal: ctrl ? ctrl.signal : undefined
+    }).then(function () {
+      clearTimeout(timer);
+      location.href = OBRIGADO_URL;
+    }).catch(function () {
+      clearTimeout(timer);
+      sending = false;
+      submitBtn.disabled = false;
+      submitBtn.removeAttribute('aria-busy');
+      showError('Não foi possível enviar agora. Tente novamente ou fale conosco pelo WhatsApp.');
+    });
   });
 })();
 

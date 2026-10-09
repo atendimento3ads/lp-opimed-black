@@ -2,4 +2,4 @@
 deployment:
   tasks:
     - export DEPLOYPATH=/home1/opimed57/black.opimed.com.br/
-    - /bin/cp -R index.html styles.css script.js robots.txt sitemap.xml .htaccess assets $DEPLOYPATH
+    - /bin/cp -R index.html obrigado.html styles.css script.js robots.txt sitemap.xml .htaccess assets $DEPLOYPATH
