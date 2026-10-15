@@ -7,6 +7,8 @@
 
 /* Todos os botões de WhatsApp apontam para o link rastreado do Tintim */
 var WHATS_URL = 'https://tintim.link/whatsapp/7c349cb9-c7e6-42a9-8469-b6271b6bdefa/3618e89b-fe36-4488-b7c2-d60239f6378a';
+/* Botões dos Fonoaudiólogos Representantes usam um link rastreado próprio */
+var WHATS_PARCEIROS_URL = 'https://tintim.link/whatsapp/7c349cb9-c7e6-42a9-8469-b6271b6bdefa/0794d590-77c4-4473-97f7-151f944bcf21';
 var WEBHOOK_URL = 'https://hook.us2.make.com/y5s7zrmm87rr9vehotg9t8exmch8cdl6';
 var OBRIGADO_URL = 'obrigado.html';
 
@@ -185,7 +187,7 @@ function rotaLink(u) {
           '<p class="unit__uf">Fonoaudiólogo Representante · ' + esc(p.estado) + '</p>' +
           '<h3 class="unit__name">' + esc(p.cidade) + '</h3>' +
           '<div class="unit__actions">' +
-            '<a class="btn btn--sm btn--whats" href="' + waLink() + '" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-whats"/></svg>Quero ser atendido em ' + esc(p.cidade) + '</a>' +
+            '<a class="btn btn--sm btn--whats" href="' + WHATS_PARCEIROS_URL + '" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-whats"/></svg>Quero ser atendido em ' + esc(p.cidade) + '</a>' +
           '</div>' +
         '</article>';
     }).join('');
