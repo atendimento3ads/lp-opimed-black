@@ -319,6 +319,23 @@ function rotaLink(u) {
   });
 })();
 
+/* ---------- Depoimentos em vídeo ----------
+   Mostra só a miniatura; o player do YouTube (youtube-nocookie) é criado no clique. */
+(function () {
+  document.querySelectorAll('.js-yt').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var f = document.createElement('iframe');
+      f.src = 'https://www.youtube-nocookie.com/embed/' + btn.dataset.yt + '?autoplay=1&rel=0&playsinline=1';
+      f.title = btn.dataset.title;
+      f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+      f.allowFullscreen = true;
+      f.referrerPolicy = 'strict-origin-when-cross-origin';
+      btn.parentNode.replaceChild(f, btn);
+      f.focus();
+    });
+  });
+})();
+
 /* ---------- Animação de entrada e barra fixa do celular ---------- */
 (function () {
   var els = document.querySelectorAll('.reveal');

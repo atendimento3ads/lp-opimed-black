@@ -128,6 +128,7 @@
     <symbol id="i-chip" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="12" height="12" rx="2"/><rect x="9.500" y="9.500" width="5" height="5" rx="1"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></symbol>
     <symbol id="i-bluetooth" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m6.500 7.500 11 9-5.500 4.500V3l5.500 4.500-11 9"/></symbol>
     <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4.500 6v5.500c0 4.500 3.200 8 7.500 9.500 4.300-1.500 7.500-5 7.500-9.500V6L12 3Z"/><path d="m9 12 2 2 4-4.500"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5Z"/></symbol>
     <symbol id="i-whats" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.030-.967-.273-.099-.471-.148-.670.150-.197.297-.767.966-.940 1.164-.173.199-.347.223-.644.075-.297-.150-1.255-.463-2.390-1.475-.883-.788-1.480-1.761-1.653-2.059-.173-.297-.018-.458.130-.606.134-.133.298-.347.446-.520.149-.174.198-.298.298-.497.099-.198.050-.371-.025-.520-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.500-.669-.510-.173-.008-.371-.010-.570-.010-.198 0-.520.074-.792.372-.272.297-1.040 1.016-1.040 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.200 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.360.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.570-.347m-5.421 7.403h-.004a9.870 9.870 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.860 9.860 0 0 1-1.510-5.260c.001-5.450 4.436-9.884 9.888-9.884 2.640 0 5.122 1.030 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.450-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.050 0C5.495 0 .160 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 0 0-3.480-8.413Z"/></symbol>
   </svg>
 
@@ -448,41 +449,26 @@
           <h2 class="h2">A experiência de outros clientes ajuda a entender o que acontece depois da escolha</h2>
         </div>
 
-        <!-- Depoimentos: avaliações públicas do Google. Validar autorização com a Opimed. -->
-        <div class="testimonials reveal">
-          <article class="testimonial">
-            <div class="testimonial__stars" role="img" aria-label="5 estrelas">★★★★★</div>
-            <p class="testimonial__text">Atendimento excepcional! Com a mudança da assistência técnica ficou bem melhor, peguei meu aparelho em 72h com a nova modalidade. Sem falar que a equipe foi muito atenciosa e resolveu meu problema rapidamente. Profissionais super capacitados e educados. Me senti seguro e muito bem atendido durante todo o processo.</p>
-            <div class="testimonial__who">
-              <span class="avatar" aria-hidden="true">P</span>
-              <div>
-                <p class="testimonial__name">Pedro L.</p>
-                <p class="testimonial__city">Avaliação no Google</p>
-              </div>
-            </div>
-          </article>
-          <article class="testimonial">
-            <div class="testimonial__stars" role="img" aria-label="5 estrelas">★★★★★</div>
-            <p class="testimonial__text">O atendimento é excelente. As meninas super educadas e alegres. Sempre tentando resolver tudo que possível. E o que mais gostei foi ver uma empresa onde os funcionários estão sempre sorrindo, por que é muito ruim ser atendido com cara fechada. E a opimed tem esse diferencial.</p>
-            <div class="testimonial__who">
-              <span class="avatar" aria-hidden="true">F</span>
-              <div>
-                <p class="testimonial__name">Francisco F.</p>
-                <p class="testimonial__city">Avaliação no Google</p>
-              </div>
-            </div>
-          </article>
-          <article class="testimonial">
-            <div class="testimonial__stars" role="img" aria-label="5 estrelas">★★★★★</div>
-            <p class="testimonial__text">A empresa realmente se dedica a oferecer um atendimento personalizado e de alta qualidade.</p>
-            <div class="testimonial__who">
-              <span class="avatar" aria-hidden="true">A</span>
-              <div>
-                <p class="testimonial__name">Adrielly B.</p>
-                <p class="testimonial__city">Avaliação no Google</p>
-              </div>
-            </div>
-          </article>
+        <!-- Depoimentos em vídeo (YouTube Shorts). O player só é carregado ao clicar (ver script.js). -->
+        <div class="videos reveal">
+          <div class="video-card">
+            <button type="button" class="video-card__btn js-yt" data-yt="Zb3RKt5-QkU" data-title="Depoimento de cliente sobre o uso de aparelhos auditivos Opimed" aria-label="Assistir ao vídeo: Depoimento de cliente sobre o uso de aparelhos auditivos Opimed">
+              <picture>
+                <source type="image/webp" srcset="assets/depoimento-1.webp">
+                <img src="assets/depoimento-1.jpg" alt="" width="540" height="960" loading="lazy" decoding="async">
+              </picture>
+              <span class="video-card__play" aria-hidden="true"><svg><use href="#i-play"/></svg></span>
+            </button>
+          </div>
+          <div class="video-card">
+            <button type="button" class="video-card__btn js-yt" data-yt="Y8iA9ATEmCM" data-title="Chambinho do Acordeon confia na Opimed" aria-label="Assistir ao vídeo: Chambinho do Acordeon confia na Opimed">
+              <picture>
+                <source type="image/webp" srcset="assets/depoimento-2.webp">
+                <img src="assets/depoimento-2.jpg" alt="" width="540" height="960" loading="lazy" decoding="async">
+              </picture>
+              <span class="video-card__play" aria-hidden="true"><svg><use href="#i-play"/></svg></span>
+            </button>
+          </div>
         </div>
       </div>
     </section>
