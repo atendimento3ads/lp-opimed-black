@@ -236,7 +236,8 @@ function rotaLink(u) {
   var sending = false;
   var UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
 
-  // UTMs: lê da URL e guarda só na sessão para sobreviver à navegação interna
+  // UTMs: lê da URL e guarda só na sessão para sobreviver à navegação interna;
+  // preenche os campos ocultos do formulário (sempre presentes, vazios se não houver UTM)
   function getUtms() {
     var out = {};
     var q = new URLSearchParams(location.search);
@@ -245,11 +246,17 @@ function rotaLink(u) {
       try {
         if (v) sessionStorage.setItem(k, v); else v = sessionStorage.getItem(k);
       } catch (e) {}
-      if (v) out[k] = v;
+      out[k] = v || '';
     });
     return out;
   }
-  getUtms();
+  function fillUtmFields() {
+    var utms = getUtms();
+    UTM_KEYS.forEach(function (k) {
+      if (form.elements[k]) form.elements[k].value = utms[k];
+    });
+  }
+  fillUtmFields();
 
   document.getElementById('telefone').addEventListener('input', function (e) {
     var d = e.target.value.replace(/\D/g, '').slice(0, 11);
@@ -283,8 +290,8 @@ function rotaLink(u) {
     body.set('telefone', form.telefone.value.trim());
     body.set('unidade', form.unidade.value);
     body.set('pagina', location.origin + location.pathname);
-    var utms = getUtms();
-    UTM_KEYS.forEach(function (k) { if (utms[k]) body.set(k, utms[k]); });
+    fillUtmFields();
+    UTM_KEYS.forEach(function (k) { body.set(k, form.elements[k].value); });
 
     sending = true;
     submitBtn.disabled = true;
