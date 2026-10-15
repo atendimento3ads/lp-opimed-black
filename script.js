@@ -260,8 +260,20 @@ function rotaLink(u) {
   }
   fillUtmFields();
 
+  // Telefone: só dígitos, sem o código do país (55) caso digitado/colado, no máx. DDD + 9 dígitos
+  function nationalDigits(v) {
+    var d = String(v).replace(/\D/g, '');
+    if (d.length > 11 && d.indexOf('55') === 0) d = d.slice(2);
+    return d.slice(0, 11);
+  }
+  // Padrão do CRM/webhook: +55DD9XXXXXXXX (ex.: +5562988887777); null se inválido
+  function phoneE164(v) {
+    var d = nationalDigits(v);
+    return /^[1-9][0-9]9[0-9]{8}$/.test(d) ? '+55' + d : null;
+  }
+
   document.getElementById('telefone').addEventListener('input', function (e) {
-    var d = e.target.value.replace(/\D/g, '').slice(0, 11);
+    var d = nationalDigits(e.target.value);
     var out = d;
     if (d.length > 2) out = '(' + d.slice(0, 2) + ') ' + d.slice(2);
     if (d.length > 7) out = '(' + d.slice(0, 2) + ') ' + d.slice(2, d.length - 4) + '-' + d.slice(-4);
@@ -281,7 +293,7 @@ function rotaLink(u) {
     var ok = true;
     var firstBad = null;
     form.querySelectorAll('[required]').forEach(function (i) {
-      var bad = !i.value.trim() || (i.type === 'tel' && i.value.replace(/\D/g, '').length < 10);
+      var bad = !i.value.trim() || (i.type === 'tel' && !phoneE164(i.value));
       i.classList.toggle('is-invalid', bad);
       if (bad) { ok = false; if (!firstBad) firstBad = i; }
     });
@@ -289,7 +301,7 @@ function rotaLink(u) {
 
     var body = new URLSearchParams();
     body.set('nome', form.nome.value.trim());
-    body.set('telefone', form.telefone.value.trim());
+    body.set('telefone', phoneE164(form.telefone.value));
     body.set('unidade', form.unidade.value);
     body.set('pagina', location.origin + location.pathname);
     fillUtmFields();
